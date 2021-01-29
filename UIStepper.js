@@ -101,15 +101,18 @@ class UIStepper extends Component {
       innerRef(undefined);
     }
   }
-  componentWillReceiveProps(nextProps) {
-    const { value: currentValue } = this.props;
-    const { value: nextValue } = nextProps;
-    if (currentValue !== nextValue) {
-      this.setState({
-        value: nextValue,
-      });
+  
+  static getDerivedStateFromProps(props, state) {
+    const { value: currentValue } = state;
+    const { value: nextValue } = props;
+    if (currentValue !== nextValue) return {
+      value: nextValue,
+    }
+    else return {
+      value: currentValue,
     }
   }
+
   decrement = () => {
     const { steps, onDecrement } = this.props;
     let value = this.state.value;
